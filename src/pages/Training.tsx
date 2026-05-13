@@ -164,10 +164,10 @@ export default function Training() {
       )}
 
       {/* Main Content */}
-      <main className={`flex-1 grid ${user.focusMode ? 'lg:grid-cols-1' : 'lg:grid-cols-12'} gap-0 overflow-hidden relative`}>
-        {/* Left: Board */}
-        <div className={`${user.focusMode ? 'lg:col-span-1' : 'lg:col-span-7'} p-6 md:p-12 flex items-center justify-center bg-[#020202] relative`}>
-          <div className="w-full max-w-[600px] aspect-square relative">
+      <main className={`flex-1 flex flex-col ${user.focusMode ? '' : 'lg:flex-row'} overflow-hidden relative`}>
+        {/* Left: Board Area */}
+        <div className={`flex-1 ${user.focusMode ? 'w-full' : 'lg:w-[60%]'} p-4 md:p-8 flex items-center justify-center bg-[#020202] relative overflow-hidden`}>
+          <div className="w-full h-full max-w-[600px] max-h-[600px] aspect-square flex flex-col relative transition-all duration-500">
             <AnimatePresence>
               {showThinkingTrainer && (
                 <ThinkingTrainer 
@@ -213,9 +213,10 @@ export default function Training() {
               )}
             </AnimatePresence>
 
-            <div className={`bg-[#111] p-1.5 rounded-lg shadow-2xl border border-white/5 transition-all duration-700 ${isBlind ? 'blur-2xl opacity-20' : ''}`}>
+            <div className={`bg-[#111] p-1 rounded-lg shadow-2xl border border-white/5 transition-all duration-700 flex-1 ${isBlind ? 'blur-2xl opacity-20' : ''}`}>
               {/* @ts-ignore */}
               <Chessboard 
+                key={exercise.id}
                 position={game.fen()} 
                 onPieceDrop={onDrop}
                 boardOrientation="white"
@@ -227,161 +228,167 @@ export default function Training() {
               />
             </div>
             
-            <div className="mt-8 flex justify-between items-center text-xs opacity-40 font-mono tracking-widest uppercase">
-              <div className="flex gap-4">
-                <button onClick={() => setShowOverlays(!showOverlays)} className={`flex items-center gap-2 transition-colors ${showOverlays ? 'text-[#F27D26]' : 'hover:text-white'}`}>
-                   {showOverlays ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />} Analítica Local
-                </button>
-                <span>Jugador: Blanca</span>
-              </div>
-              <div className="flex items-center gap-4">
-                {exercise.category === "Calculation" && (
-                  <button 
-                    onClick={() => setIsBlind(!isBlind)}
-                    className={`flex items-center gap-2 px-2 py-1 rounded transition-colors ${isBlind ? 'bg-[#F27D26] text-white opacity-100' : 'hover:bg-white/5'}`}
-                  >
-                    {isBlind ? 'Ver Tablero' : 'Modo Ciego'}
+            {!user.focusMode && (
+              <div className="mt-4 flex justify-between items-center text-[10px] opacity-30 font-mono tracking-widest uppercase">
+                <div className="flex gap-4">
+                  <button onClick={() => setShowOverlays(!showOverlays)} className={`flex items-center gap-2 transition-colors ${showOverlays ? 'text-[#F27D26]' : 'hover:text-white'}`}>
+                     {showOverlays ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />} Analítica Local
                   </button>
-                )}
-                <span>Dificultad: {exercise.difficulty}</span>
+                  <span>Jugador: Blanca</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  {exercise.category === "Calculation" && (
+                    <button 
+                      onClick={() => setIsBlind(!isBlind)}
+                      className={`flex items-center gap-2 px-2 py-1 rounded transition-colors ${isBlind ? 'bg-[#F27D26] text-white opacity-100' : 'hover:bg-white/5'}`}
+                    >
+                      {isBlind ? 'Ver Tablero' : 'Modo Ciego'}
+                    </button>
+                  )}
+                  <span>Dificultad: {exercise.difficulty}</span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
-        {/* Right: Info & Feedback */}
+        {/* Right: Info & Feedback Area */}
         {!user.focusMode && (
-          <div className="lg:col-span-5 bg-[#080808] border-l border-[#1A1A1A] p-6 md:p-10 flex flex-col h-full overflow-y-auto">
-            <motion.div 
-              key={exercise.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="space-y-8 h-full flex flex-col"
-            >
-              <AnimatePresence mode="wait">
-                {showInsights ? (
-                  <motion.div
-                    key="insights"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="p-8 bg-[#F27D26]/5 border border-[#F27D26]/30 rounded-[2.5rem] space-y-6"
-                  >
-                    <div className="flex items-center gap-3 text-[#F27D26]">
-                      <BookOpen className="w-6 h-6" />
-                      <h3 className="text-xl font-bold uppercase tracking-widest">Lección Posicional</h3>
-                    </div>
-                    <p className="text-lg font-light italic serif text-white/80 leading-relaxed">
-                      "Aprende primero los finales, luego el medio juego y solo al final las aperturas. La claridad estructural es tu mayor arma."
-                    </p>
-                    <div className="space-y-4 pt-4 border-t border-[#F27D26]/20">
-                      <div className="flex items-center gap-2 text-xs font-mono opacity-60">
-                        <CheckCircle2 className="w-4 h-4" /> PRINCIPIO REFORZADO: {exercise.principle}
-                      </div>
-                      <div className="flex items-center gap-2 text-xs font-mono opacity-60">
-                         <CheckCircle2 className="w-4 h-4" /> ERROR EVITADO: Juego Automático
-                      </div>
-                    </div>
-                    <Button 
-                      className="w-full rounded-2xl bg-[#F27D26] hover:bg-[#F27D26]/90 text-white font-bold h-14"
-                      onClick={nextExercise}
+          <div className="lg:w-[40%] bg-[#080808] border-l border-[#1A1A1A] flex flex-col h-full overflow-hidden">
+            <div className="flex-1 overflow-y-auto p-6 md:p-8 lg:p-10 custom-scrollbar">
+              <motion.div 
+                key={exercise.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-6 lg:space-y-8"
+              >
+                <AnimatePresence mode="wait">
+                  {showInsights ? (
+                    <motion.div
+                      key="insights"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="p-6 md:p-8 bg-[#F27D26]/5 border border-[#F27D26]/30 rounded-[2.5rem] space-y-6"
                     >
-                      CONTINUAR ENTRENAMIENTO
-                    </Button>
-                  </motion.div>
-                ) : (
-                  <div className="space-y-8">
-                    <div>
-                      <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#F27D26] mb-3 block">
-                        {exercise.principle}
-                      </span>
-                      <h2 className="text-3xl font-light leading-tight mb-4 tracking-tighter">
-                        {exercise.title}
-                      </h2>
-                      <p className="text-white/60 leading-relaxed font-light">
-                        {exercise.description}
+                      <div className="flex items-center gap-3 text-[#F27D26]">
+                        <BookOpen className="w-6 h-6" />
+                        <h3 className="text-xl font-bold uppercase tracking-widest">Lección Posicional</h3>
+                      </div>
+                      <p className="text-lg font-light italic serif text-white/80 leading-relaxed">
+                        "Aprende primero los finales, luego el medio juego y solo al final las aperturas. La claridad estructural es tu mayor arma."
                       </p>
-                    </div>
+                      <div className="space-y-4 pt-4 border-t border-[#F27D26]/20">
+                        <div className="flex items-center gap-2 text-xs font-mono opacity-60">
+                          <CheckCircle2 className="w-4 h-4" /> PRINCIPIO REFORZADO: {exercise.principle}
+                        </div>
+                        <div className="flex items-center gap-2 text-xs font-mono opacity-60">
+                           <CheckCircle2 className="w-4 h-4" /> ERROR EVITADO: Juego Automático
+                        </div>
+                      </div>
+                      <Button 
+                        className="w-full rounded-2xl bg-[#F27D26] hover:bg-[#F27D26]/90 text-white font-bold h-14"
+                        onClick={nextExercise}
+                      >
+                        CONTINUAR ENTRENAMIENTO
+                      </Button>
+                    </motion.div>
+                  ) : (
+                    <div className="space-y-6 lg:space-y-8">
+                      <div>
+                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#F27D26] mb-3 block">
+                          {exercise.principle}
+                        </span>
+                        <h2 className="text-2xl lg:text-3xl font-light leading-tight mb-4 tracking-tighter">
+                          {exercise.title}
+                        </h2>
+                        <p className="text-sm lg:text-base text-white/60 leading-relaxed font-light">
+                          {exercise.description}
+                        </p>
+                      </div>
 
-                    <div className="space-y-4">
-                      {status.isCorrect === true ? (
-                        <div className="p-6 bg-[#F27D26]/10 border border-[#F27D26]/30 rounded-2xl flex gap-4">
-                          <CheckCircle2 className="w-6 h-6 text-[#F27D26] shrink-0" />
-                          <div>
-                            <h4 className="font-bold text-[#F27D26] text-sm mb-1 uppercase tracking-wider">Coach: Piense como Capablanca</h4>
-                            <p className="text-sm italic leading-relaxed text-[#F27D26]/90">
-                              "{status.feedback}"
-                            </p>
+                      <div className="space-y-4">
+                        {status.isCorrect === true ? (
+                          <div className="p-5 lg:p-6 bg-[#F27D26]/10 border border-[#F27D26]/30 rounded-2xl flex gap-4">
+                            <CheckCircle2 className="w-6 h-6 text-[#F27D26] shrink-0" />
+                            <div>
+                              <h4 className="font-bold text-[#F27D26] text-sm mb-1 uppercase tracking-wider">Coach: Piense como Capablanca</h4>
+                              <p className="text-sm italic leading-relaxed text-[#F27D26]/90">
+                                "{status.feedback}"
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      ) : status.isCorrect === false ? (
-                        <div className="p-6 bg-red-500/10 border border-red-500/30 rounded-2xl flex gap-4">
-                          <XCircle className="w-6 h-6 text-red-500 shrink-0" />
-                          <div>
-                            <h4 className="font-bold text-red-500 text-sm mb-1 uppercase tracking-wider">Coach Feedback</h4>
-                            <p className="text-sm italic leading-relaxed text-red-500/90 font-light">
-                              "{status.feedback}"
-                            </p>
+                        ) : status.isCorrect === false ? (
+                          <div className="p-5 lg:p-6 bg-red-500/10 border border-red-500/30 rounded-2xl flex gap-4">
+                            <XCircle className="w-6 h-6 text-red-500 shrink-0" />
+                            <div>
+                              <h4 className="font-bold text-red-500 text-sm mb-1 uppercase tracking-wider">Coach Feedback</h4>
+                              <p className="text-sm italic leading-relaxed text-red-500/90 font-light">
+                                "{status.feedback}"
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      ) : (
-                        <div className="p-6 bg-white/5 border border-white/10 rounded-2xl flex gap-4 text-white/30">
-                          <HelpCircle className="w-6 h-6 shrink-0" />
-                          <div>
-                            <h4 className="font-bold text-sm mb-1 uppercase tracking-wider">Esperando movimiento</h4>
-                            <p className="text-sm italic font-light">
-                              Encuentra el plan maestro...
-                            </p>
+                        ) : (
+                          <div className="p-5 lg:p-6 bg-white/5 border border-white/10 rounded-2xl flex gap-4 text-white/30">
+                            <HelpCircle className="w-6 h-6 shrink-0" />
+                            <div>
+                              <h4 className="font-bold text-sm mb-1 uppercase tracking-wider">Esperando movimiento</h4>
+                              <p className="text-sm italic font-light">
+                                Encuentra el plan maestro...
+                              </p>
+                            </div>
                           </div>
+                        )}
+                      </div>
+
+                      {showHint && (
+                        <div className="p-4 bg-blue-500/5 border border-blue-500/20 rounded-xl flex gap-3 italic text-xs lg:text-sm text-blue-300 font-light leading-relaxed">
+                          <Lightbulb className="w-4 h-4 shrink-0 text-blue-400" />
+                          "{exercise.coachFeedback.hint}"
                         </div>
                       )}
-                    </div>
 
-                    {showHint && (
-                      <div className="p-5 bg-blue-500/5 border border-blue-500/20 rounded-xl flex gap-3 italic text-sm text-blue-300 font-light leading-relaxed">
-                        <Lightbulb className="w-4 h-4 shrink-0 text-blue-400" />
-                        "{exercise.coachFeedback.hint}"
+                      <div className="grid grid-cols-2 gap-3 pt-2">
+                        <Button 
+                          variant="outline" 
+                          className="rounded-xl h-12 border-white/10 hover:bg-white/5 text-[10px] font-bold uppercase tracking-widest opacity-60 hover:opacity-100"
+                          onClick={() => setShowHint(true)}
+                        >
+                          Recibir Pista
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          className="rounded-xl h-12 border-white/10 hover:bg-white/5 opacity-60 hover:opacity-100 gap-2 text-[10px] font-bold uppercase tracking-widest"
+                          onClick={reset}
+                        >
+                          <RotateCcw className="w-3 h-3" /> Reiniciar
+                        </Button>
                       </div>
-                    )}
-
-                    <div className="flex gap-3 pt-4 border-t border-white/5">
-                      <Button 
-                        variant="outline" 
-                        className="flex-1 rounded-xl h-12 border-white/10 hover:bg-white/5 text-xs font-bold uppercase tracking-widest opacity-60 hover:opacity-100"
-                        onClick={() => setShowHint(true)}
-                      >
-                        Recibir Pista
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="icon" 
-                        className="rounded-xl w-12 h-12 border-white/10 hover:bg-white/5 opacity-60 hover:opacity-100"
-                        onClick={reset}
-                      >
-                        <RotateCcw className="w-4 h-4" />
-                      </Button>
                     </div>
-                  </div>
-                )}
-              </AnimatePresence>
-              
-              <div className="flex justify-between items-center pt-8 mt-auto">
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            </div>
+            
+            {/* Action Bar at the bottom of panel */}
+            <div className="p-6 md:p-8 lg:p-10 border-t border-white/5 bg-[#080808]">
+              <div className="flex justify-between items-center">
                 <Button 
                   variant="ghost" 
                   onClick={prevExercise} 
-                  className="hover:bg-white/5 rounded-full text-xs font-bold uppercase tracking-widest opacity-40"
+                  className="hover:bg-white/5 rounded-full text-[10px] font-bold uppercase tracking-widest opacity-40 px-4"
                   disabled={currentIndex === 0}
                 >
                   <ChevronLeft className="mr-2 w-4 h-4" /> Anterior
                 </Button>
                 <Button 
                   onClick={nextExercise} 
-                  className="bg-white text-black hover:bg-opacity-90 rounded-full px-6 text-xs font-bold uppercase tracking-widest"
+                  className="bg-white text-black hover:bg-opacity-90 rounded-full px-8 h-12 text-[10px] font-bold uppercase tracking-widest transition-all hover:scale-105 active:scale-95"
                   disabled={currentIndex === initialExercises.length - 1}
                 >
                   Siguiente <ChevronRight className="ml-2 w-4 h-4" />
                 </Button>
               </div>
-            </motion.div>
+            </div>
           </div>
         )}
 

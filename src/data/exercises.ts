@@ -35,13 +35,13 @@ export interface Exercise {
 export const initialExercises: Exercise[] = [
   {
     id: "1",
-    title: "The Art of Simplification",
-    description: "Capablanca often simplified positions when he had a clear advantage. In this endgame, identify the trade that streamlines the path to victory.",
-    principle: "Simplification",
+    title: "El arte de la simplificación",
+    description: "Capablanca solía simplificar sus posiciones cuando tenía una clara ventaja. En este final de partida, identifica la operación que te permita alcanzar la victoria.",
+    principle: "Simplificación",
     category: "Endgames",
     difficulty: "Beginner",
-    fen: "4k3/1p4p1/1P2p2p/3pP2P/1p1P2P1/1P6/4K3/8 w - - 0 1",
-    bestMove: "Ke3",
+    fen: "8/8/8/3k4/8/1P1K4/8/8 w - - 0 1",
+    bestMove: "Kc3",
     strategicAssessment: [
       {
         question: "¿Cuál es la pieza más importante en este final?",
@@ -51,9 +51,9 @@ export const initialExercises: Exercise[] = [
       }
     ],
     coachFeedback: {
-      correct: "Excellent. By activating the King, you prepare to support your pawns and ultimately simplify the struggle.",
-      incorrect: "Moving pawns unnecessarily might create weaknesses. Focus on the most important piece in the endgame: the King.",
-      hint: "Capablanca said: 'The King is a fighting piece. Use it.'"
+      correct: "Excelente. Al activar el Rey, te preparas para apoyar a tus peones y simplificar la lucha hacia la victoria.",
+      incorrect: "Mover peones innecesariamente puede crear debilidades. Céntrate en la pieza más importante del final: el Rey.",
+      hint: "Capablanca decía: 'El Rey es una pieza de combate. ¡Úsalo!'"
     },
     xp: 100
   },

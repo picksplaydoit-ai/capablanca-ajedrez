@@ -8,7 +8,17 @@ export interface GameStatus {
 }
 
 export function useGameEngine(exercise: any, completeExercise: any) {
-  const [game, setGame] = useState(new Chess(exercise.fen));
+  const [game, setGame] = useState(() => {
+    const c = new Chess();
+    if (exercise?.fen) {
+      const loaded = c.load(exercise.fen);
+      if (!loaded) {
+        console.error("Failed to load FEN:", exercise.fen);
+      }
+    }
+    return c;
+  });
+
   const [status, setStatus] = useState<GameStatus>({
     isCorrect: null,
     feedback: '',
@@ -16,14 +26,19 @@ export function useGameEngine(exercise: any, completeExercise: any) {
   });
 
   useEffect(() => {
-    setGame(new Chess(exercise.fen));
+    const newGame = new Chess();
+    if (exercise?.fen) {
+      newGame.load(exercise.fen);
+    }
+    setGame(newGame);
     setStatus({ isCorrect: null, feedback: '', isComplete: false });
-  }, [exercise.fen]);
+  }, [exercise?.fen]);
 
   const makeAMove = useCallback(
     (move: any) => {
       try {
-        const gameCopy = new Chess(game.fen());
+        const gameCopy = new Chess();
+        gameCopy.load(game.fen());
         const result = gameCopy.move(move);
         
         if (result) {
@@ -44,7 +59,9 @@ export function useGameEngine(exercise: any, completeExercise: any) {
               isComplete: false,
             });
             setTimeout(() => {
-              setGame(new Chess(game.fen()));
+              const resetGame = new Chess();
+              resetGame.load(game.fen());
+              setGame(resetGame);
               setStatus(s => ({ ...s, isCorrect: null }));
             }, 1500);
           }
@@ -73,7 +90,11 @@ export function useGameEngine(exercise: any, completeExercise: any) {
     status,
     onDrop,
     reset: () => {
-      setGame(new Chess(exercise.fen));
+      const resetGame = new Chess();
+      if (exercise?.fen) {
+        resetGame.load(exercise.fen);
+      }
+      setGame(resetGame);
       setStatus({ isCorrect: null, feedback: '', isComplete: false });
     },
   };
