@@ -195,7 +195,13 @@ export default function Training() {
                 </div>
               )}
             </div>
-            
+
+            {/* Debug Info (Temporary) */}
+            <div className="mt-4 p-3 bg-white/5 rounded-xl border border-white/5 text-[10px] font-mono opacity-60 space-y-1">
+              <div><span className="text-[#F27D26]">FEN actual:</span> {game.fen()}</div>
+              <div><span className="text-[#F27D26]">Ejercicio actual:</span> {exercise.title}</div>
+            </div>
+                        
             {!user.focusMode && (
               <div className="mt-4 flex justify-between items-center text-[10px] opacity-30 font-mono tracking-widest uppercase">
                 <div className="flex gap-4">

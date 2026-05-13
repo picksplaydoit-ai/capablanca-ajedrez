@@ -9,12 +9,15 @@ export interface GameStatus {
 
 export function useGameEngine(exercise: any, completeExercise: any) {
   const [game, setGame] = useState(() => {
-    try {
-      return new Chess(exercise?.fen || undefined);
-    } catch (e) {
-      console.error("Invalid FEN on init:", exercise?.fen);
-      return new Chess();
+    const chess = new Chess();
+    if (exercise?.fen) {
+      try {
+        chess.load(exercise.fen);
+      } catch (e) {
+        console.error("Invalid FEN on init:", exercise.fen);
+      }
     }
+    return chess;
   });
 
   const [status, setStatus] = useState<GameStatus>({
@@ -24,15 +27,17 @@ export function useGameEngine(exercise: any, completeExercise: any) {
   });
 
   useEffect(() => {
-    try {
-      const newGame = new Chess(exercise?.fen || undefined);
-      setGame(newGame);
-    } catch (e) {
-      console.error("Invalid FEN on update:", exercise?.fen);
-      setGame(new Chess());
+    const newGame = new Chess();
+    if (exercise?.fen) {
+      try {
+        newGame.load(exercise.fen);
+      } catch (e) {
+        console.error("Invalid FEN on update:", exercise.fen);
+      }
     }
+    setGame(newGame);
     setStatus({ isCorrect: null, feedback: '', isComplete: false });
-  }, [exercise?.fen]);
+  }, [exercise?.id, exercise?.fen]);
 
   const makeAMove = useCallback(
     (move: any) => {
@@ -60,7 +65,9 @@ export function useGameEngine(exercise: any, completeExercise: any) {
             });
             setTimeout(() => {
               const resetGame = new Chess();
-              resetGame.load(game.fen());
+              if (exercise?.fen) {
+                resetGame.load(exercise.fen);
+              }
               setGame(resetGame);
               setStatus(s => ({ ...s, isCorrect: null }));
             }, 1500);
