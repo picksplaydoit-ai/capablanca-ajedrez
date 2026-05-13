@@ -13,8 +13,8 @@ import {
   CheckCircle2,
   Trophy
 } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import { Card } from '@/components/ui/card.tsx';
+import { Progress } from '@/components/ui/progress.tsx';
 import { 
   Radar, 
   RadarChart, 

@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card.tsx';
+import { Button } from '@/components/ui/button.tsx';
 import { useStore } from '@/store/useStore';
 import { Zap, Target, BookOpen, Clock, CheckCircle2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';

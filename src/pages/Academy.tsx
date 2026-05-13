@@ -15,9 +15,9 @@ import {
   CheckCircle2,
   BookOpen
 } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card.tsx';
+import { Progress } from '@/components/ui/progress.tsx';
+import { Button } from '@/components/ui/button.tsx';
 
 const iconMap = {
   Layers: Layers,

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button.tsx';
 import { Brain, HelpCircle, ArrowRight, Shield, Target, Sword } from 'lucide-react';
 
 interface ThinkingTrainerProps {

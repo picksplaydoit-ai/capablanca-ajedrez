@@ -2,9 +2,9 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { useStore } from '@/store/useStore';
 import { initialExercises } from '@/data/exercises';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import { Button } from '@/components/ui/button.tsx';
+import { Card } from '@/components/ui/card.tsx';
+import { Progress } from '@/components/ui/progress.tsx';
 import { 
   Trophy, 
   Flame, 

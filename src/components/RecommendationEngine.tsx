@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/components/ui/card.tsx';
 import { useStore } from '@/store/useStore';
 import { BrainCircuit, ChevronRight, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';

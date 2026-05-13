@@ -14,7 +14,7 @@ import Onboarding from './pages/Onboarding';
 import Academy from './pages/Academy';
 import Journal from './pages/Journal';
 import GMStudy from './pages/GMStudy';
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/components/ui/sonner.tsx';
 
 export default function App() {
   return (

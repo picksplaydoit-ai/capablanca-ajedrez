@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/components/ui/card.tsx';
 import { useStore } from '@/store/useStore';
 import { 
   Radar, 

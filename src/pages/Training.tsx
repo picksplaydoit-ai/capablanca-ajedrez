@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useGameEngine } from '@/lib/chess-engine';
 import { initialExercises } from '@/data/exercises';
 import { useStore } from '@/store/useStore';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import { Button } from '@/components/ui/button.tsx';
+import { Card } from '@/components/ui/card.tsx';
+import { Progress } from '@/components/ui/progress.tsx';
 import { 
   ChevronLeft, 
   ChevronRight, 

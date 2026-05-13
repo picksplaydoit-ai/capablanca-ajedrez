@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/components/ui/card.tsx';
 import { modelGames } from '@/data/model-games';
 import { BookOpen, Play, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
