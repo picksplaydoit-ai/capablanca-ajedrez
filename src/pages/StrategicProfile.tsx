@@ -107,7 +107,7 @@ export default function StrategicProfile() {
              <ResponsiveContainer width="100%" height="85%">
                 <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
                   <PolarGrid stroke="rgba(255,255,255,0.05)" />
-                  <PolarAngleAxis dataKey="subject" tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10, uppercase: true }} />
+                  <PolarAngleAxis dataKey="subject" tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10 }} />
                   <Radar
                     name="Mastery"
                     dataKey="A"
