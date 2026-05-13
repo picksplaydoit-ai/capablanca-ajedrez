@@ -45,18 +45,18 @@ export default function ThinkingTrainer({ onComplete, category }: ThinkingTraine
   };
 
   return (
-    <div className="absolute inset-0 z-[60] bg-black/90 backdrop-blur-md rounded-lg flex items-center justify-center p-8 overflow-hidden">
-      <div className="absolute inset-0 opacity-10">
+    <div className="absolute inset-0 z-[60] bg-black/40 backdrop-blur-[2px] rounded-lg flex items-center justify-center p-4 overflow-hidden border border-[#F27D26]/20">
+      <div className="absolute inset-0 opacity-5">
         <div className="h-full w-full bg-[radial-gradient(#F27D26_1px,transparent_1px)] bg-[size:20px_20px]" />
       </div>
 
       <AnimatePresence mode="wait">
         <motion.div
           key={step}
-          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          initial={{ opacity: 0, y: 10, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -20, scale: 1.05 }}
-          className="max-w-md w-full relative z-10 space-y-8"
+          exit={{ opacity: 0, y: -10, scale: 1.02 }}
+          className="max-w-sm w-full relative z-10 space-y-6 bg-black/80 p-6 rounded-[2rem] border border-white/10 shadow-2xl"
         >
           <div className="text-center space-y-2">
             <div className="flex justify-center mb-4">

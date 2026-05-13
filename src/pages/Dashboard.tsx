@@ -39,7 +39,7 @@ export default function Dashboard() {
       <header className="p-6 border-b border-white/5 bg-[#080808]/80 backdrop-blur-md sticky top-0 z-50 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-[#F27D26] flex items-center justify-center font-bold italic serif text-white">C</div>
-          <h1 className="text-sm font-bold tracking-widest uppercase">Capablanca <span className="opacity-40">Method</span></h1>
+          <h1 className="text-sm font-bold tracking-widest uppercase">Capablanca <span className="opacity-40">Método</span></h1>
         </div>
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">

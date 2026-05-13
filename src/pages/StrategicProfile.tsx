@@ -28,21 +28,21 @@ export default function StrategicProfile() {
   const { user } = useStore();
 
   const radarData = [
-    { subject: 'Estrategia', A: user.mastery.Strategy, fullMark: 100 },
-    { subject: 'Táctica', A: user.mastery.Tactics, fullMark: 100 },
-    { subject: 'Finales', A: user.mastery.Endgames, fullMark: 100 },
-    { subject: 'Cálculo', A: user.mastery.Calculation, fullMark: 100 },
-    { subject: 'Profilaxis', A: user.mastery.Prophylaxis, fullMark: 100 },
-    { subject: 'Estructura', A: user.mastery.Structures, fullMark: 100 },
+    { subject: 'Estrategia', A: user.mastery.Estrategia, fullMark: 100 },
+    { subject: 'Táctica', A: user.mastery.Táctica, fullMark: 100 },
+    { subject: 'Finales', A: user.mastery.Finales, fullMark: 100 },
+    { subject: 'Cálculo', A: user.mastery.Cálculo, fullMark: 100 },
+    { subject: 'Profilaxis', A: user.mastery.Profilaxis, fullMark: 100 },
+    { subject: 'Estructura', A: user.mastery.Estructuras, fullMark: 100 },
   ];
 
   const categories = [
-    { name: 'Estrategia', val: user.mastery.Strategy, icon: Brain, color: 'text-blue-400' },
-    { name: 'Táctica', val: user.mastery.Tactics, icon: Sword, color: 'text-red-400' },
-    { name: 'Finales', val: user.mastery.Endgames, icon: Trophy, color: 'text-yellow-400' },
-    { name: 'Cálculo', val: user.mastery.Calculation, icon: Target, color: 'text-green-400' },
-    { name: 'Profilaxis', val: user.mastery.Prophylaxis, icon: Shield, color: 'text-purple-400' },
-    { name: 'Estructura', val: user.mastery.Structures, icon: Zap, color: 'text-orange-400' },
+    { name: 'Estrategia', val: user.mastery.Estrategia, icon: Brain, color: 'text-blue-400' },
+    { name: 'Táctica', val: user.mastery.Táctica, icon: Sword, color: 'text-red-400' },
+    { name: 'Finales', val: user.mastery.Finales, icon: Trophy, color: 'text-yellow-400' },
+    { name: 'Cálculo', val: user.mastery.Cálculo, icon: Target, color: 'text-green-400' },
+    { name: 'Profilaxis', val: user.mastery.Profilaxis, icon: Shield, color: 'text-purple-400' },
+    { name: 'Estructura', val: user.mastery.Estructuras, icon: Zap, color: 'text-orange-400' },
   ];
 
   return (

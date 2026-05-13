@@ -2,12 +2,12 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface Mastery {
-  Strategy: number;
-  Tactics: number;
-  Endgames: number;
-  Calculation: number;
-  Prophylaxis: number;
-  Structures: number;
+  Estrategia: number;
+  Táctica: number;
+  Finales: number;
+  Cálculo: number;
+  Profilaxis: number;
+  Estructuras: number;
 }
 
 interface JournalEntry {
@@ -59,12 +59,12 @@ export const useStore = create<GameState>()(
         lastCompletedDate: null,
         dailyChallengeCompleted: false,
         mastery: {
-          Strategy: 0,
-          Tactics: 0,
-          Endgames: 0,
-          Calculation: 0,
-          Prophylaxis: 0,
-          Structures: 0,
+          Estrategia: 0,
+          Táctica: 0,
+          Finales: 0,
+          Cálculo: 0,
+          Profilaxis: 0,
+          Estructuras: 0,
         },
         trait: "Aprendiz",
         academyProgress: {},
@@ -162,10 +162,10 @@ export const useStore = create<GameState>()(
         const { mastery } = get().user;
         let trait = "Equilibrado";
         
-        if (mastery.Endgames > mastery.Tactics + 20) trait = "Técnico";
-        if (mastery.Tactics > mastery.Strategy + 20) trait = "Agresivo";
-        if (mastery.Strategy > mastery.Tactics + 20) trait = "Posicional";
-        if (mastery.Prophylaxis > 30) trait = "Sólido";
+        if (mastery.Finales > mastery.Táctica + 20) trait = "Técnico";
+        if (mastery.Táctica > mastery.Estrategia + 20) trait = "Agresivo";
+        if (mastery.Estrategia > mastery.Táctica + 20) trait = "Posicional";
+        if (mastery.Profilaxis > 30) trait = "Sólido";
 
         set((state) => ({ user: { ...state.user, trait } }));
       },

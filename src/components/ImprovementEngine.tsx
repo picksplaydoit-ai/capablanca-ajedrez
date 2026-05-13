@@ -16,12 +16,12 @@ export default function ImprovementEngine() {
   const { user } = useStore();
   
   const data = [
-    { subject: 'Estrategia', A: user.mastery.Strategy, fullMark: 150 },
-    { subject: 'Táctica', A: user.mastery.Tactics, fullMark: 150 },
-    { subject: 'Finales', A: user.mastery.Endgames, fullMark: 150 },
-    { subject: 'Cálculo', A: user.mastery.Calculation, fullMark: 150 },
-    { subject: 'Profilaxis', A: user.mastery.Prophylaxis, fullMark: 150 },
-    { subject: 'Estructura', A: user.mastery.Structures, fullMark: 150 },
+    { subject: 'Estrategia', A: user.mastery.Estrategia, fullMark: 150 },
+    { subject: 'Táctica', A: user.mastery.Táctica, fullMark: 150 },
+    { subject: 'Finales', A: user.mastery.Finales, fullMark: 150 },
+    { subject: 'Cálculo', A: user.mastery.Cálculo, fullMark: 150 },
+    { subject: 'Profilaxis', A: user.mastery.Profilaxis, fullMark: 150 },
+    { subject: 'Estructura', A: user.mastery.Estructuras, fullMark: 150 },
   ];
 
   const totalMastery = Object.values(user.mastery).reduce((a, b) => a + b, 0);

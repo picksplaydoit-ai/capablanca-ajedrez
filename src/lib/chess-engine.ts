@@ -9,14 +9,12 @@ export interface GameStatus {
 
 export function useGameEngine(exercise: any, completeExercise: any) {
   const [game, setGame] = useState(() => {
-    const c = new Chess();
-    if (exercise?.fen) {
-      const loaded = c.load(exercise.fen);
-      if (!loaded) {
-        console.error("Failed to load FEN:", exercise.fen);
-      }
+    try {
+      return new Chess(exercise?.fen || undefined);
+    } catch (e) {
+      console.error("Invalid FEN on init:", exercise?.fen);
+      return new Chess();
     }
-    return c;
   });
 
   const [status, setStatus] = useState<GameStatus>({
@@ -26,11 +24,13 @@ export function useGameEngine(exercise: any, completeExercise: any) {
   });
 
   useEffect(() => {
-    const newGame = new Chess();
-    if (exercise?.fen) {
-      newGame.load(exercise.fen);
+    try {
+      const newGame = new Chess(exercise?.fen || undefined);
+      setGame(newGame);
+    } catch (e) {
+      console.error("Invalid FEN on update:", exercise?.fen);
+      setGame(new Chess());
     }
-    setGame(newGame);
     setStatus({ isCorrect: null, feedback: '', isComplete: false });
   }, [exercise?.fen]);
 
@@ -48,14 +48,14 @@ export function useGameEngine(exercise: any, completeExercise: any) {
           if (algebraicMove === exercise.bestMove) {
             setStatus({
               isCorrect: true,
-              feedback: exercise.coachFeedback.correct,
+              feedback: exercise.successFeedback,
               isComplete: true,
             });
             completeExercise(exercise.id, exercise.xp, exercise.category);
           } else {
             setStatus({
               isCorrect: false,
-              feedback: exercise.coachFeedback.incorrect,
+              feedback: exercise.failureFeedback,
               isComplete: false,
             });
             setTimeout(() => {

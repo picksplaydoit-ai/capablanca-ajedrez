@@ -29,10 +29,10 @@ export default function Landing() {
       <nav className="relative z-50 flex items-center justify-between px-8 py-8 max-w-7xl mx-auto">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-black font-bold italic serif text-2xl shadow-[0_0_40px_rgba(255,255,255,0.1)]">C</div>
-          <span className="text-sm font-bold tracking-[0.2em] uppercase">Capablanca <span className="opacity-40">Method</span></span>
+          <span className="text-sm font-bold tracking-[0.2em] uppercase">Capablanca <span className="opacity-40">Método</span></span>
         </div>
         <div className="flex items-center gap-8">
-          <button onClick={() => navigate('/auth')} className="text-xs font-bold uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity">Login</button>
+          <button onClick={() => navigate('/auth')} className="text-xs font-bold uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity">Iniciar Sesión</button>
           <Button 
             onClick={() => navigate('/onboarding')}
             className="rounded-full bg-white text-black hover:bg-opacity-90 font-bold text-xs h-10 px-6 tracking-widest"

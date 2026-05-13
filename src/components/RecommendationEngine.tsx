@@ -16,12 +16,12 @@ export default function RecommendationEngine() {
     const weakest = sorted[0][0];
     
     const recommendations: Record<string, { title: string, desc: string }> = {
-      Strategy: { title: "Comprensión de Centro", desc: "Tus piezas necesitan mejores casillas centrales." },
-      Tactics: { title: "Patrones de Mate", desc: "Falta precisión en el remate táctico." },
-      Endgames: { title: "Técnica de Oposición", desc: "El Rey debe activarse más en el final." },
-      Calculation: { title: "Visualización Profunda", desc: "Entrena variantes de 3+ jugadas." },
-      Prophylaxis: { title: "Sentido del Peligro", desc: "No ignores los planes del rival." },
-      Structures: { title: "Cadenas de Peones", desc: "Coordina mejor tus rupturas." },
+      Estrategia: { title: "Comprensión de Centro", desc: "Tus piezas necesitan mejores casillas centrales." },
+      Táctica: { title: "Patrones de Mate", desc: "Falta precisión en el remate táctico." },
+      Finales: { title: "Técnica de Oposición", desc: "El Rey debe activarse más en el final." },
+      Cálculo: { title: "Visualización Profunda", desc: "Entrena variantes de 3+ jugadas." },
+      Profilaxis: { title: "Sentido del Peligro", desc: "No ignores los planes del rival." },
+      Estructuras: { title: "Cadenas de Peones", desc: "Coordina mejor tus rupturas." },
     };
 
     return { 

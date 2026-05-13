@@ -1,444 +1,404 @@
 export type ExerciseCategory = 
-  | "Strategy" 
-  | "Tactics" 
-  | "Endgames" 
-  | "Calculation" 
-  | "Prophylaxis" 
-  | "Structures";
-
-export interface StrategicStep {
-  question: string;
-  options: string[];
-  correctIndex: number;
-  explanation: string;
-}
+  | "Estrategia" 
+  | "Táctica" 
+  | "Finales" 
+  | "Cálculo" 
+  | "Profilaxis" 
+  | "Estructuras"
+  | "Técnica";
 
 export interface Exercise {
   id: string;
   title: string;
-  description: string;
+  fen: string;
+  sideToMove: "w" | "b";
+  bestMove: string;
   principle: string;
   category: ExerciseCategory;
-  difficulty: "Beginner" | "Intermediate" | "Advanced";
-  fen: string;
-  bestMove: string;
-  calculationVariants?: string[];
-  strategicAssessment?: StrategicStep[];
-  coachFeedback: {
-    correct: string;
-    incorrect: string;
-    hint: string;
-  };
+  difficulty: "Principiante" | "Intermedio" | "Avanzado";
+  tags: string[];
+  context: string;
+  question: string;
+  explanation: string;
+  hints: string[];
+  successFeedback: string;
+  failureFeedback: string;
   xp: number;
 }
 
 export const initialExercises: Exercise[] = [
   {
-    id: "1",
-    title: "El arte de la simplificación",
-    description: "Capablanca solía simplificar sus posiciones cuando tenía una clara ventaja. En este final de partida, identifica la operación que te permita alcanzar la victoria.",
-    principle: "Simplificación",
-    category: "Endgames",
-    difficulty: "Beginner",
-    fen: "8/8/8/3k4/8/1P1K4/8/8 w - - 0 1",
-    bestMove: "Kc3",
-    strategicAssessment: [
-      {
-        question: "¿Cuál es la pieza más importante en este final?",
-        options: ["Los peones del flanco de rey", "El Rey", "Los peones doblados"],
-        correctIndex: 1,
-        explanation: "En los finales, el Rey se convierte en una pieza de ataque activa. Capablanca dominaba esto mejor que nadie."
-      }
+    id: "capa-1",
+    title: "El puesto avanzado del Caballo",
+    fen: "1r3rk1/1p1qbppp/p1n1p3/3p4/3P4/P1NBP3/1P3PPP/2RQ1RK1 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "Na4",
+    principle: "Actividad de Piezas",
+    category: "Estrategia",
+    difficulty: "Intermedio",
+    tags: ["caballo", "outpost", "minority attack"],
+    context: "En esta posición típica del Gambito de Dama, las blancas tienen un desarrollo armonioso. Sin embargo, el caballo de c3 está bloqueado por su propio peón de d4 y no tiene un objetivo claro.",
+    question: "¿Cómo puede el blanco iniciar una maniobra para ocupar una casilla débil en el campo enemigo?",
+    explanation: "Na4 es una jugada estratégica excelente. El objetivo es la casilla c5, un 'outpost' ideal donde el caballo presionará b7 y restringirá la actividad negra. Si las negras juegan ...b5, habrán creado debilidades permanentes que el blanco sabrá explotar.",
+    hints: [
+      "Busca una maniobra para llevar el caballo a c5.",
+      "Identifica qué pieza negra defiende la casilla c5.",
+      "A veces hay que alejar una pieza del centro para mejorar su posición a largo plazo."
     ],
-    coachFeedback: {
-      correct: "Excelente. Al activar el Rey, te preparas para apoyar a tus peones y simplificar la lucha hacia la victoria.",
-      incorrect: "Mover peones innecesariamente puede crear debilidades. Céntrate en la pieza más importante del final: el Rey.",
-      hint: "Capablanca decía: 'El Rey es una pieza de combate. ¡Úsalo!'"
-    },
-    xp: 100
-  },
-  {
-    id: "2",
-    title: "Piece Coordination",
-    description: "Ensure your pieces are working together. The Knight and Bishop should control key squares around the center.",
-    principle: "Coordination",
-    category: "Strategy",
-    difficulty: "Beginner",
-    fen: "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
-    bestMove: "Bc4",
-    coachFeedback: {
-      correct: "Classic development. The Bishop targets f7 and controls the center diagonal.",
-      incorrect: "Developing without a target is inefficient. The Bishop belongs on an active diagonal.",
-      hint: "Look for the most active square for your light-squared Bishop."
-    },
-    xp: 50
-  },
-  {
-    id: "3",
-    title: "The active Rook",
-    description: "A Rook on the 7th rank is often worth a pawn. Find the way to maximize your rook's pressure.",
-    principle: "Piece Activity",
-    category: "Strategy",
-    difficulty: "Intermediate",
-    fen: "2r3k1/1R3ppp/p7/8/8/8/P4PPP/6K1 w - - 0 1",
-    bestMove: "h3",
-    coachFeedback: {
-      correct: "Safety first. Providing 'Luft' for your King prevents back-rank issues while your Rook dominates.",
-      incorrect: "Ignoring the back-rank threat is a common mistake even among experts.",
-      hint: "Don't let a sudden checkmate ruin your positional advantage."
-    },
+    successFeedback: "¡Excelente! Na4 es el inicio de la famosa maniobra de Capablanca para dominar el flanco de dama.",
+    failureFeedback: "Ese movimiento no prepara la mejora del caballo. Busca la casilla c5.",
     xp: 150
   },
   {
-    id: "4",
-    title: "Pawn Structure Integrity",
-    description: "Avoid doubling your pawns unless it provides significant compensation. Evaluate the exchange.",
-    principle: "Structure",
-    category: "Structures",
-    difficulty: "Beginner",
-    fen: "r1bqk2r/pp1nppbp/2pp1np1/8/2PPP3/2N1BP2/PP4PP/R2QKBNR w KQkq - 1 7",
-    bestMove: "Qd2",
-    coachFeedback: {
-      correct: "Perfect logic. Preparing long castles while keeping the structure flexible.",
-      incorrect: "Rushing the attack without preparation was not Capablanca's way.",
-      hint: "Prepare your development before launching an assault."
-    },
-    xp: 80
-  },
-  {
-    id: "5",
-    title: "Centralization is Key",
-    description: "Centralizing your pieces early creates the foundation for a strong middle game.",
-    principle: "Centralization",
-    category: "Strategy",
-    difficulty: "Beginner",
-    fen: "rnbqkb1r/pppp1ppp/5n2/4p3/4P3/2N5/PPPP1PPP/R1BQKBNR w KQkq - 2 3",
-    bestMove: "Nf3",
-    coachFeedback: {
-      correct: "Strong and steady. You control the center and develop smoothly.",
-      incorrect: "Developing your Queen too early makes it a target for the opponent.",
-      hint: "Knight development should precede most other actions."
-    },
-    xp: 60
-  },
-  {
-    id: "6",
-    title: "The Minority Attack",
-    description: "Launch a minority attack to create a weakness in the opponent's pawn structure.",
-    principle: "Pawn Structure",
-    category: "Structures",
-    difficulty: "Advanced",
-    fen: "1r3rk1/2p1bppp/p1n1p3/1pPq4/3P4/PQ2PN2/5PPP/R1B2RK1 w - - 0 1",
-    bestMove: "Rb1",
-    coachFeedback: {
-      correct: "Correct. Preparing the advance of the b-pawn and adding pressure to the queenside.",
-      incorrect: "Too passive. You must execute the strategic plan in this structure.",
-      hint: "Support your queenside expansion."
-    },
+    id: "capa-2",
+    title: "Simplificación Ganadora",
+    fen: "2r2rk1/pp3p1b/4p2p/3p1qp1/3P4/1NP1R1P1/PP3P1P/R2Q2K1 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "Qd3",
+    principle: "Simplificación",
+    category: "Técnica",
+    difficulty: "Avanzado",
+    tags: ["finales", "seguridad", "cambio"],
+    context: "Las blancas tienen una estructura más sólida y una mejor coordinación. La dama negra en f5 es la única pieza activa del rival que genera contrajuego.",
+    question: "¿Cuál es el método más simple de Capablanca para neutralizar el peligro y entrar en un final favorable?",
+    explanation: "Qd3 invita al cambio de damas. Al eliminar la pieza más peligrosa del negro, el blanco transpone a un final donde su superioridad estructural y la debilidad de los peones negros aseguran una victoria técnica sin riesgos.",
+    hints: [
+      "No temas cambiar piezas si eso elimina el contrajuego enemigo.",
+      "Las damas iguales suelen favorecer al bando con mejor estructura en el final.",
+      "Busca la máxima seguridad."
+    ],
+    successFeedback: "¡Correcto! Qd3 anula el ataque negro y simplifica hacia una victoria técnica impecable.",
+    failureFeedback: "Evitar el cambio permite que el negro mantenga esperanzas de ataque. El camino de Capablanca es la claridad.",
     xp: 200
   },
   {
-    id: "7",
-    title: "Opposition in Endgames",
-    description: "Master the concept of 'Opposition'. Your King must reach the key squares to promote your pawn.",
-    principle: "Endgames",
-    category: "Endgames",
-    difficulty: "Intermediate",
-    fen: "8/8/8/3k4/8/1P1K4/8/8 w - - 0 1",
-    bestMove: "Kc3",
-    coachFeedback: {
-      correct: "Excellent. Maintaining the opposition and preventing the enemy King from approaching.",
-      incorrect: "Losing the opposition allows the enemy King to blockade your pawn.",
-      hint: "Move towards the pawn while keeping an eye on the enemy King."
-    },
-    xp: 120
-  },
-  {
-    id: "8",
-    title: "Bishop vs Knight",
-    description: "Capablanca often demonstrated the superiority of the Bishop over the Knight in open positions.",
-    principle: "Piece Activity",
-    category: "Strategy",
-    difficulty: "Intermediate",
-    fen: "4k3/1b6/8/4n3/8/5P2/4K1P1/8 w - - 0 1",
-    bestMove: "Ke3",
-    coachFeedback: {
-      correct: "The King supports the center and limits the Knight's mobility.",
-      incorrect: "Pawns alone cannot fight a centralized Knight and active Bishop.",
-      hint: "Bring your King into the center."
-    },
-    xp: 130
-  },
-  {
-    id: "9",
-    title: "The Rook behind the Pawn",
-    description: "Rooks belong behind passed pawns—both your own and your opponent's.",
-    principle: "Piece Activity",
-    category: "Endgames",
-    difficulty: "Beginner",
-    fen: "8/8/kp1R4/8/1P6/8/8/7K w - - 0 1",
-    bestMove: "Rd7",
-    coachFeedback: {
-      correct: "Isolating the King on the edge is the most efficient way to promote.",
-      incorrect: "Don't push the pawn too fast. Support it with your heavy pieces first.",
-      hint: "Contain the enemy King."
-    },
-    xp: 70
-  },
-  {
-    id: "10",
-    title: "Structural Weakness",
-    description: "Identify and target the isolated pawn. Capablanca would find the most direct route to pressure it.",
-    principle: "Positional Control",
-    category: "Prophylaxis",
-    difficulty: "Intermediate",
-    fen: "2r2rk1/pp1b1ppp/1qn1pn2/3p4/2PP4/1P1B1N2/P2N1PPP/R2Q1RK1 w - - 0 1",
-    bestMove: "c5",
-    coachFeedback: {
-      correct: "Closes the center and creates a target on the a6/b7 complex. Very Capablanca-esque.",
-      incorrect: "Leaving the tension in the center and allowing unnecessary counterplay.",
-      hint: "Fix the structure to your advantage."
-    },
-    xp: 110
-  },
-  {
-    id: "11",
-    title: "Knight on the Rim",
-    description: "A Knight on the rim is dim. Centralize the piece to dominate the board.",
-    principle: "Centralization",
-    category: "Strategy",
-    difficulty: "Beginner",
-    fen: "r1bqkbnr/pppp1ppp/n7/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1",
-    bestMove: "Nf3",
-    coachFeedback: {
-      correct: "Strong centralization. You ignore the distraction on the edge.",
-      incorrect: "Chasing the knight on the edge often wastes valuable time.",
-      hint: "Develop towards the center."
-    },
-    xp: 50
-  },
-  {
-    id: "12",
-    title: "Passed Pawn Menace",
-    description: "In the endgame, a passed pawn is a 'criminal' that must be kept under surveillance.",
-    principle: "Endgames",
-    category: "Endgames",
-    difficulty: "Advanced",
-    fen: "8/8/3P4/4k3/8/5K2/8/8 w - - 0 1",
-    bestMove: "Ke3",
-    coachFeedback: {
-      correct: "By bringing the King closer, you ensure the pawn's promotion or trade for the enemy King.",
-      incorrect: "If you push the pawn immediately, the King will catch it.",
-      hint: "The King must support the advance."
-    },
-    xp: 180
-  },
-  {
-    id: "13",
-    title: "The Open File",
-    description: "Control the only open file to infiltrate the opponent's position.",
-    principle: "Positional Control",
-    category: "Strategy",
-    difficulty: "Intermediate",
-    fen: "2r2rk1/pp3ppp/4p3/3pP3/8/1P6/P4PPP/2R2RK1 w - - 0 1",
-    bestMove: "Rxc8",
-    coachFeedback: {
-      correct: "Controlling the file is good, but sometimes forcing a trade on your terms is better for the final endgame.",
-      incorrect: "Allowing the opponent to maintain the file contest can lead to equality.",
-      hint: "Think about the transition to the endgame."
-    },
-    xp: 140
-  },
-  {
-    id: "14",
-    title: "Double Bishop Power",
-    description: "Coordinate your two Bishops to slice through the board.",
-    principle: "Piece Activity",
-    category: "Strategy",
-    difficulty: "Intermediate",
-    fen: "4k3/1b3b2/8/8/8/8/1B3B2/4K3 w - - 0 1",
-    bestMove: "Bc3",
-    coachFeedback: {
-      correct: "Improving the placement of your Bishops step by step.",
-      incorrect: "Moving pieces aimlessly loses the cooperative power of the pair.",
-      hint: "Aim for long-reaching coordination."
-    },
-    xp: 100
-  },
-  {
-    id: "15",
-    title: "Space Advantage",
-    description: "Use your space to restrict your opponent's pieces. Don't rush, just squeeze.",
-    principle: "Positional Control",
-    category: "Strategy",
-    difficulty: "Advanced",
-    fen: "rnbqkb1r/pppp1ppp/5n2/4p3/3PP3/2N5/PPP2PPP/R1BQKBNR w KQkq - 0 1",
-    bestMove: "d5",
-    coachFeedback: {
-      correct: "Gaining space and forcing the enemy knight to a less active square.",
-      incorrect: "Trading now simplifies the position too early, giving away your advantage.",
-      hint: "Check which move limits your opponent more."
-    },
-    xp: 160
-  },
-  {
-    id: "16",
-    title: "The Seventh Rank",
-    description: "The rook's ultimate destination. Use it to paralyze the enemy's defense.",
-    principle: "Piece Activity",
-    category: "Tactics",
-    difficulty: "Intermediate",
-    fen: "5rk1/R4ppp/8/8/8/8/5PPP/6K1 w - - 0 1",
-    bestMove: "f3",
-    coachFeedback: {
-      correct: "Preventing any backrank surprises while maintaining the pressure.",
-      incorrect: "Don't let your guard down when you have the advantage.",
-      hint: "Safety before glory."
-    },
-    xp: 110
-  },
-  {
-    id: "17",
-    title: "Trading for Profit",
-    description: "Not all trades are equal. Trade your active piece only for a clear positional gain.",
-    principle: "Simplification",
-    category: "Strategy",
-    difficulty: "Intermediate",
-    fen: "r1bqk2r/pp3ppp/2n1pn2/2pp4/2PP4/P1PBPN2/5PPP/R1BQK1R1 w KQkq - 0 1",
-    bestMove: "O-O",
-    coachFeedback: {
-      correct: "Completing development. The center will resolve itself in your favor.",
-      incorrect: "Trading in the center now releases the tension prematurely.",
-      hint: "Castle first."
-    },
-    xp: 90
-  },
-  {
-    id: "18",
-    title: "Blockading the Pawn",
-    description: "The best way to stop a passed pawn is to place a piece directly in front of it.",
-    principle: "Positional Control",
-    category: "Calculation",
-    difficulty: "Beginner",
-    fen: "8/1p6/1p6/1p6/pP6/P7/8/8 w - - 0 1",
-    bestMove: "Kg2",
-    coachFeedback: {
-      correct: "Approaching the target calmly. No need to rush.",
-      incorrect: "The pawns are blocked; move your King to help.",
-      hint: "Bring the King."
-    },
-    xp: 40
-  },
-  {
-    id: "19",
-    title: "Improving the Worst Piece",
-    description: "Identify your worst-placed piece and find the maneuver to improve it.",
-    principle: "Piece Activity",
-    category: "Strategy",
-    difficulty: "Intermediate",
-    fen: "r1bq1rk1/pp1nbppp/2p1pn2/3p4/2PP4/2NBPN2/PP3PPP/R1BQK2R w KQ - 0 1",
-    bestMove: "e4",
-    coachFeedback: {
-      correct: "Opening the center benefits your well-coordinated pieces.",
-      incorrect: "Developing slowly allows your opponent to catch up.",
-      hint: "Look for the central break."
-    },
-    xp: 120
-  },
-  {
-    id: "20",
-    title: "Calculating the Finish",
-    description: "Sometimes a small combination is needed to convert a positional advantage into a win.",
-    principle: "Technique",
-    category: "Calculation",
-    difficulty: "Advanced",
-    fen: "4r1k1/pp3ppp/2p5/8/3P4/1P4P1/P4P1P/3R2K1 w - - 0 1",
-    bestMove: "d5",
-    coachFeedback: {
-      correct: "The passed pawn creates massive problems for Black. The game is functionally won.",
-      incorrect: "Moving the King is safe, but pushing the pawn wins faster.",
-      hint: "Advance your trumps."
-    },
-    xp: 250
-  },
-  {
-    id: "21",
-    title: "The Greek Gift Sacrifice",
-    description: "Classic tactical pattern. Evaluate if the sacrifice on h7 is decisive in this position.",
-    principle: "Kingside Attack",
-    category: "Tactics",
-    difficulty: "Intermediate",
-    fen: "r1bq1rk1/pp1nbppp/2p1pn2/3p2B1/2PP4/2N1PN2/PP3PPP/R2QKB1R w KQ - 0 1",
-    bestMove: "Bxh7+",
-    coachFeedback: {
-      correct: "Devastating. The King is exposed and the follow-up with Ng5+ and Qh5 is unstoppable.",
-      incorrect: "Missing the tactical opportunity allows Black to consolidate the defense.",
-      hint: "Target the h7 square."
-    },
-    xp: 150
-  },
-  {
-    id: "22",
-    title: "Prophylactic Thinking",
-    description: "Stop your opponent's plan before it even starts. Identify Black's intention and neutralize it.",
-    principle: "Prophylaxis",
-    category: "Prophylaxis",
-    difficulty: "Advanced",
-    fen: "r1bq1rk1/pp2ppbp/2np1np1/8/2PP4/2N1BP2/PP2N1PP/R2QKB1R w KQ - 0 1",
-    bestMove: "a3",
-    coachFeedback: {
-      correct: "Precise. Preventing ...Nb4 or ...b5 before expanding in the center.",
-      incorrect: "Rushing ahead allows the opponent to create annoying counter-threats.",
-      hint: "Control the b4 square."
-    },
-    xp: 200
-  },
-  {
-    id: "23",
-    title: "Simplifying to a Won Pawn Ending",
-    description: "When ahead in material, sometimes trading all pieces is the cleanest path.",
-    principle: "Simplification",
-    category: "Endgames",
-    difficulty: "Intermediate",
-    fen: "8/5pk1/6p1/7p/7P/5KP1/5P2/8 w - - 0 1",
-    bestMove: "Ke4",
-    coachFeedback: {
-      correct: "The King's activity is paramount here. Centralizing ensures control over the breakthrough squares.",
-      incorrect: "Moving pawns blindly can lead to a draw in what should be a win.",
-      hint: "Activate the King."
-    },
-    xp: 140
-  },
-  {
-    id: "24",
-    title: "The Isolated Queen's Pawn",
-    description: "Understand the dynamics of the IQP. Should you simplify or keep pieces on the board?",
-    principle: "Structure",
-    category: "Structures",
-    difficulty: "Advanced",
-    fen: "r1bq1rk1/pp3ppp/2n1pn2/3p4/2PP4/P1PB1N2/5PPP/R1BQK2R w KQ - 0 1",
-    bestMove: "O-O",
-    coachFeedback: {
-      correct: "Standard. Developing and waiting for the right moment to resolve the tension.",
-      incorrect: "Trading now simplifies too much and gives away the dynamic potential of the center.",
-      hint: "Complete development."
-    },
+    id: "capa-3",
+    title: "La Torre en Séptima",
+    fen: "r1r3k1/1p3ppp/3p4/pP1Pp3/4P3/R1N2P2/1P4PP/5RK1 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "b6",
+    principle: "Actividad de Piezas",
+    category: "Estrategia",
+    difficulty: "Avanzado",
+    tags: ["columna abierta", "infiltracion", "espacio"],
+    context: "El blanco domina el espacio y tiene un peón pasado en b5. Las negras intentan bloquear la columna a.",
+    question: "¿Cómo puede el blanco forzar la entrada de sus piezas pesadas o mejorar su ventaja de espacio?",
+    explanation: "b6 es un golpe demoledor. Si las negras comen, la columna a se abre completamente para la torre blanca. Si no comen, el peón en b6 paraliza el flanco de dama negro y prepara la entrada triunfal de las piezas blancas.",
+    hints: [
+      "Usa tu peón pasado para crear caos.",
+      "Busca abrir líneas para tus torres.",
+      "La casilla c7 es el objetivo final."
+    ],
+    successFeedback: "¡Brillante! b6 abre las compuertas. La parálisis negra es total.",
+    failureFeedback: "Un movimiento lento permite que el negro se organice. ¡Hay que actuar con energía!",
     xp: 220
   },
   {
-    id: "25",
-    title: "Bishop Maneuvering",
-    description: "The Bishop needs long diagonals. Find the way to reposition it against the enemy structure.",
-    principle: "Piece Activity",
-    category: "Strategy",
-    difficulty: "Intermediate",
-    fen: "r1bqk2r/pp2bppp/2n1pn2/2pp4/2PP4/PP1BPN2/5PPP/RNBQK2R w KQkq - 0 1",
-    bestMove: "Bb2",
-    coachFeedback: {
-      correct: "The fianchettoed Bishop will exert immense pressure on the long diagonal once the center opens.",
-      incorrect: "Leaving the Bishop on d3 blocks your own development and restricts its scope.",
-      hint: "Target the center from the flank."
-    },
-    xp: 160
+    id: "capa-4",
+    title: "Profilaxis en el Enroque",
+    fen: "r4rk1/pp1qbppp/2n1pn2/1B1p4/3P1B2/P1N1P3/1P3PPP/2RQ1RK1 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "h3",
+    principle: "Profilaxis",
+    category: "Profilaxis",
+    difficulty: "Intermedio",
+    tags: ["seguridad", "prevencion", "aire"],
+    context: "La posición es equilibrada. El blanco tiene una ligera presión en c6, pero antes de lanzarse al ataque debe asegurar su propio rey contra posibles sorpresas.",
+    question: "¿Cuál es el movimiento preventivo 'clásico' para evitar temas de mate en la última fila y limitar piezas enemigas?",
+    explanation: "h3 da un 'aire' al rey (Luft) y evita que piezas negras (como un alfil o caballo) salten a g4 para molestar la coordinación blanca. Es la paciencia capablanquina antes del golpe.",
+    hints: [
+      "Piensa en la seguridad a largo plazo del rey.",
+      "Evita que el negro use la casilla g4.",
+      "Un movimiento de peón pequeño puede evitar grandes dolores de cabeza."
+    ],
+    successFeedback: "Exacto. h3 es la marca de un maestro que no deja nada al azar.",
+    failureFeedback: "Demasiada prisa puede ser peligrosa. No ignores la seguridad de tu rey.",
+    xp: 120
+  },
+  {
+    id: "capa-5",
+    title: "Restricción del Alfil",
+    fen: "r3rbk1/ppq2ppp/2p1bn2/4p3/2P5/1PN1P1P1/PB2QPBP/2RR2K1 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "Nd5",
+    principle: "Posicional Control",
+    category: "Estrategia",
+    difficulty: "Avanzado",
+    tags: ["centro", "caballo dominante", "tension"],
+    context: "El negro ha centralizado sus piezas y preparado ...Bg4. El blanco necesita tomar la iniciativa en el centro para no quedar pasivo.",
+    question: "¿Cómo puede el blanco usar su ventaja central para crear una crisis inmediata en la posición negra?",
+    explanation: "Nd5 es un movimiento temático. Si el negro captura con el peón, el blanco obtiene un peón pasado protegido devastador. Si captura con pieza, el blanco debilita la estructura negra o gana la pareja de alfiles en mejores condiciones.",
+    hints: [
+      "Busca una casilla central fuerte para tu caballo.",
+      "Considera las consecuencias de los cambios en d5.",
+      "La dama negra en c7 está en la misma línea que tu torre."
+    ],
+    successFeedback: "¡Espectacular! Nd5 rompe la armonía negra y obliga a decisiones difíciles.",
+    failureFeedback: "Un juego pasivo solo ayuda al plan de las negras. Tienes que golpear en el centro.",
+    xp: 250
+  },
+  {
+    id: "capa-6",
+    title: "Final de Reyes Activos",
+    fen: "8/1p3kp1/p1p1p2p/P1P1P1PP/P4K2/8/8/8 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "g6+",
+    principle: "Finales Técnicos",
+    category: "Finales",
+    difficulty: "Intermedio",
+    tags: ["rey", "oposicion", "bloqueo"],
+    context: "La estructura de peones está casi fijada. En este final, el bando que logre infiltrar su rey primero ganará los peones débiles del otro.",
+    question: "¿Cómo debe el blanco avanzar para asegurar la invasión de su rey o fijar debilidades?",
+    explanation: "g6+ es fundamental. Si el negro captura, el peón h pasará pronto. Si el rey se mueve a e7 (por ejemplo), el blanco puede maniobrar para castigar la debilidad de f7 o usar su rey activo en el flanco de dama tras fijar el de rey.",
+    hints: [
+      "No permitas que el rey negro se active.",
+      "Usa tus peones para restringir el espacio.",
+      "El rey es una pieza de ataque."
+    ],
+    successFeedback: "¡Excelente! g6+ paraliza al negro y te da el control total del final.",
+    failureFeedback: "Permitir que el negro iguale la actividad de los reyes es un error grave en finales.",
+    xp: 180
+  },
+  {
+    id: "capa-7",
+    title: "Debilidad en d5",
+    fen: "r1r3k1/pp1b1ppp/1qn1pn2/2pp4/2PP4/P1PBPN2/5PPP/R1BQK2R w KQ - 0 1",
+    sideToMove: "w",
+    bestMove: "O-O",
+    principle: "Estructuras",
+    category: "Estructuras",
+    difficulty: "Principiante",
+    tags: ["desarrollo", "seguridad", "enroque"],
+    context: "La tensión en el centro es alta. El negro presiona d4 y c4. El blanco aún no tiene a su rey seguro.",
+    question: "¿Cuál es la prioridad antes de decidir la estructura final del centro?",
+    explanation: "Enrocarse (O-O) es la jugada más sensata. Capablanca rara vez se lanzaba a aventuras tácticas sin antes haber completado su desarrollo básico y asegurado a su monarca.",
+    hints: [
+      "Desarrolla antes de atacar.",
+      "Pon tu rey a salvo.",
+      "La tensión central puede esperar un turno."
+    ],
+    successFeedback: "Correcto. Desarrollo armonioso primero, estrategia compleja después.",
+    failureFeedback: "Resolver el centro sin estar desarrollado es invitar al desastre. ¡Enrócate!",
+    xp: 80
+  },
+  {
+    id: "capa-8",
+    title: "El ataque de minorías",
+    fen: "1r3rk1/2p1bppp/p1n1p3/1pPq4/3P4/PQ2PN2/5PPP/R1B2RK1 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "Rb1",
+    principle: "Mejora de Estructura",
+    category: "Estructuras",
+    difficulty: "Avanzado",
+    tags: ["minority attack", "debilitamiento", "planes"],
+    context: "El blanco tiene una mayoría de peones en el flanco de dama pero la estructura negra es sólida. El objetivo es crear una debilidad en c6 o b5.",
+    question: "¿Cómo preparar el avance b4-b5 para debilitar la cadena de peones negra?",
+    explanation: "Rb1 apoya el avance b4. Es el inicio del ataque de minorías, donde el blanco usa menos peones para atacar una cadena superior, buscando crear un peón aislado o una debilidad permanente en c6.",
+    hints: [
+      "Prepara el avance b4.",
+      "Tus torres deben apoyar el plan del flanco de dama.",
+      "Identifica el peón que quieres atacar en el futuro."
+    ],
+    successFeedback: "¡Muy bien! Estás ejecutando un plan posicional de alto nivel: el ataque de minorías.",
+    failureFeedback: "Sin apoyo, el avance b4 será ineficaz. Usa tus piezas pesadas.",
+    xp: 230
+  },
+  {
+    id: "capa-9",
+    title: "La fuerza del Alfil de Casillas Blancas",
+    fen: "2r2rk1/1p1qbppp/p1n1p3/3p4/2PP4/P1NBP3/1P3PPP/2RQ1RK1 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "cxd5",
+    principle: "Apertura de Líneas",
+    category: "Estrategia",
+    difficulty: "Principiante",
+    tags: ["alfil", "diagonal", "tension"],
+    context: "El blanco tiene un alfil muy fuerte en d3 apuntando al enroque. Sin embargo, el centro está cerrado y el alfil no puede expresar todo su potencial.",
+    question: "¿Cómo debe el blanco resolver la tensión central para activar su pieza más peligrosa?",
+    explanation: "cxd5 abre la diagonal h1-a8 y la columna c. Tras exd5, el alfil de d3 se vuelve una pieza ofensiva terrible que presiona h7 y coordina con el caballo de e5 en el futuro.",
+    hints: [
+      "Busca abrir la diagonal de tu alfil de d3.",
+      "El cambio en d5 aclara la situación central.",
+      "Considera qué pieza negra quedará bloqueada tras el cambio."
+    ],
+    successFeedback: "¡Excelente! Aclarar el centro es vital para que tus piezas de largo alcance dominen.",
+    failureFeedback: "Mantener la tensión bloquea a tus propios alfiles. ¡Abre el juego!",
+    xp: 90
+  },
+  {
+    id: "capa-10",
+    title: "Caballo vs Alfil en el Final",
+    fen: "8/1b3kp1/p3p2p/1p1nPp1P/1P1P1P2/P2K4/3B4/8 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "Bc1",
+    principle: "Finales Técnicos",
+    category: "Finales",
+    difficulty: "Avanzado",
+    tags: ["bloqueo", "maniobra", "final complejo"],
+    context: "Un final bloqueado clásico. El negro tiene un caballo centralizado excelente. El blanco tiene un alfil 'malo' restringido por sus propios peones.",
+    question: "¿Qué maniobra profiláctica debe hacer el blanco para evitar que el caballo negro penetre o para mejorar su alfil?",
+    explanation: "Bc1 parece pasivo, pero es una jugada de espera y reubicación. El blanco debe estar listo para jugar Be3 o Bd2 dependiendo de los movimientos del negro, manteniendo el bloqueo absoluto en las casillas blancas.",
+    hints: [
+      "No permitas rupturas en el centro.",
+      "A veces, la mejor jugada es una que mantiene el status quo mientras el rival se debilita.",
+      "El alfil debe defender y esperar su momento."
+    ],
+    successFeedback: "¡Paciencia de campeón! Bc1 mantiene el control y no concede nada al rival.",
+    failureFeedback: "Mover peones en esta posición solo crearía debilidades que el caballo negro explotaría.",
+    xp: 220
+  },
+  {
+    id: "capa-11",
+    title: "La ruptura f4",
+    fen: "r4rk1/pp1b1ppp/1qn1pn2/1B1p4/2PP4/P1N1PN2/5PPP/R1BQ1RK1 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "c5",
+    principle: "Ganancia de Espacio",
+    category: "Estrategia",
+    difficulty: "Intermedio",
+    tags: ["espacio", "centro", "maniobra"],
+    context: "El blanco tiene una posición sólida. Las negras están bien desarrolladas pero su dama en b6 es vulnerable.",
+    question: "¿Cómo puede el blanco ganar espacio en el flanco de dama y forzar a la dama negra a una casilla peor?",
+    explanation: "c5 gana espacio, ataca la dama y define la estructura. El alfil de b5 se vuelve más fuerte y el blanco prepara un posible ataque en el flanco de rey o una expansión mayor en el de dama.",
+    hints: [
+      "Ataca la dama negra.",
+      "Gana espacio en el flanco donde tienes ventaja numérica de peones.",
+      "Restringe las opciones del negro en d5."
+    ],
+    successFeedback: "¡Exacto! c5 es el movimiento más natural y fuerte para dominar el tablero.",
+    failureFeedback: "Ser pasivo permite que el negro rompa con ...e5 en el futuro. ¡Toma el espacio!",
+    xp: 140
+  },
+  {
+    id: "capa-12",
+    title: "Cambio de Piezas Menores",
+    fen: "r1b2rk1/pp2ppbp/2n2np1/2pp4/2PP4/2N1PN1P/PP2BPP1/R1BQ1RK1 b - - 0 1",
+    sideToMove: "b",
+    bestMove: "cxd4",
+    principle: "Simplificación",
+    category: "Estructuras",
+    difficulty: "Avanzado",
+    tags: ["tension", "centro", "estructura simetrica"],
+    context: "Estamos con las negras. El blanco tiene una posición muy sólida (Sistema Londres/Eslava). Hay mucha tensión en el centro d4-c5.",
+    question: "¿Cómo debe el negro resolver la tensión central para evitar quedar con una posición inferior tras el desarrollo blanco?",
+    explanation: "cxd4 es vital. Si el negro espera, el blanco puede jugar c5 o mantener una presión asfixiante. Al cambiar, el negro asegura una estructura más clara y prepara ...Be6 o ...Bf5 para disputar el control.",
+    hints: [
+      "No permitas que el blanco cierre el centro a su favor.",
+      "Busca la claridad estructural.",
+      "Considera qué pieza blanca capturará en d4."
+    ],
+    successFeedback: "¡Muy bien! Has entendido que mantener la tensión a veces favorece al bando con más espacio.",
+    failureFeedback: "Ignorar la tensión central permitirá que el blanco te asfixie con c5.",
+    xp: 190
+  },
+  {
+    id: "capa-13",
+    title: "El Sacrificio de Atracción",
+    fen: "r1bq1rk1/pp1nbppp/2p1pn2/3p2B1/2PP4/2N1PN2/PP3PPP/R2QKB1R w KQ - 0 1",
+    sideToMove: "w",
+    bestMove: "Qc2",
+    principle: "Coordinación",
+    category: "Estrategia",
+    difficulty: "Principiante",
+    tags: ["desarrollo", "presion", "dama"],
+    context: "Posición clásica de la Ortodoxa. El blanco ha desarrollado sus piezas menores y ahora debe decidir dónde colocar su dama para coordinar con las torres.",
+    question: "¿Cuál es la casilla más flexible para la dama blanca en esta estructura?",
+    explanation: "Qc2 es la jugada estándar. Prepara la presión en la columna c y defiende e4 ante posibles rupturas. Capablanca prefería colocar sus piezas en casillas donde tuvieran influencia múltiple sin comprometerse demasiado pronto.",
+    hints: [
+      "Busca una casilla que conecte tus torres.",
+      "La dama en c2 presiona indirectamente c7 y defiende el centro.",
+      "Completa la primera fase del desarrollo."
+    ],
+    successFeedback: "¡Correcto! Qc2 es sólido y prepara planes profundos en el flanco de dama.",
+    failureFeedback: "Lanzar ataques prematuros no es el método Capablanca. Desarrolla armoniosamente.",
+    xp: 80
+  },
+  {
+    id: "capa-14",
+    title: "La debilidad de b7",
+    fen: "r1b2rk1/1pq1bppp/p1n1pn2/3p4/3P4/PPNBP3/1B2NPPP/R2Q1RK1 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "Na4",
+    principle: "Actividad de Piezas",
+    category: "Estrategia",
+    difficulty: "Intermedio",
+    tags: ["caballo", "outpost", "flanco de dama"],
+    context: "El blanco ha construido una posición sólida. El caballo en c3 está parado por d4. Las negras han jugado ...a6, lo cual debilita b6 y c5.",
+    question: "¿Cómo puede el blanco aprovechar esas debilidades periféricas?",
+    explanation: "Na4 se encamina a c5. Es una maniobra posicional pura. El caballo en c5 será intocable y forzará a las negras a tomar decisiones dolorosas sobre su alfil de d7.",
+    hints: [
+      "Usa la casilla que el peón 'a' ya no defiende.",
+      "El caballo busca un puesto avanzado.",
+      "Prepara la presión sobre b7."
+    ],
+    successFeedback: "¡Excelente! Has captado la esencia del juego posicional: mejorar las piezas explotando debilidades de peones.",
+    failureFeedback: "Mover piezas en el centro ahora es menos efectivo que dominar el flanco debilitado.",
+    xp: 150
+  },
+  {
+    id: "capa-15",
+    title: "Final de Torres: Actividad",
+    fen: "6k1/1R3ppp/p7/8/8/8/P4PPP/6K1 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "h3",
+    principle: "Profilaxis",
+    category: "Finales",
+    difficulty: "Principiante",
+    tags: ["seguridad", "final de torres", "aire"],
+    context: "Tienes una torre dominante en la séptima fila. El negro está paralizado, pero su torre en c8 amenaza con un mate en la última fila si te descuidas.",
+    question: "¿Qué debe hacer el blanco antes de proceder con el ataque a los peones negros?",
+    explanation: "h3 (o g3) es esencial. En los finales de torres, la seguridad del rey es lo primero. Una vez que el rey tiene aire, la torre blanca en b7 puede comerse todo el flanco de dama negro sin miedo a contraataques.",
+    hints: [
+      "No mueras por un mate básico mientras vas ganando.",
+      "Crea una salida para tu rey.",
+      "La profilaxis es el escudo del atacante."
+    ],
+    successFeedback: "¡Sabio! Primero la seguridad, luego la gloria. Ahora tu torre es libre para devastar al rival.",
+    failureFeedback: "Ignorar el mate en la última fila es el error más común en este nivel. ¡Cuidado!",
+    xp: 70
+  },
+  {
+    id: "capa-16",
+    title: "La ruptura central d5",
+    fen: "rnbq1rk1/pp2bppp/4pn2/2pp4/2PP4/2N1PN2/PP2BPPP/R1BQ1RK1 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "dxc5",
+    principle: "Simplificación",
+    category: "Estrategia",
+    difficulty: "Intermedio",
+    tags: ["centro", "cambio", "estructura"],
+    context: "Estructura simétrica del Gambito de Dama. Ambos bandos han completado el desarrollo básico. La tensión en d4-c5 debe resolverse.",
+    question: "¿Cómo debe el blanco aclarar la situación central para buscar una ligera ventaja duradera?",
+    explanation: "dxc5 seguido de un posible cambio en d8 o desarrollo del alfil a c4. El blanco busca una posición donde su mejor desarrollo y control de la columna d le den una ventaja mínima pero persistente, al estilo de Capablanca.",
+    hints: [
+      "Aclara el centro para evitar complicaciones tácticas.",
+      "Prepara el desarrollo de tu alfil de f1.",
+      "Busca la simetría favorable."
+    ],
+    successFeedback: "¡Muy bien! Estás eligiendo el camino de la claridad y el control.",
+    failureFeedback: "Dejar que el negro decida la estructura central puede ser arriesgado.",
+    xp: 110
+  },
+  {
+    id: "capa-17",
+    title: "El final de Reyes: Oposición",
+    fen: "8/8/8/4k1p1/6P1/4K3/8/8 w - - 0 1",
+    sideToMove: "w",
+    bestMove: "Kf3",
+    principle: "Finales Técnicos",
+    category: "Finales",
+    difficulty: "Avanzado",
+    tags: ["rey", "oposicion", "tablas"],
+    context: "Final de peones bloqueado. El negro tiene un peón extra en g5, pero el blanco puede forzar las tablas si usa correctamente la oposición.",
+    question: "¿Dónde debe colocarse el rey blanco para mantener el bloqueo y asegurar el empate?",
+    explanation: "Kf3 es la única jugada que mantiene la oposición. Si el blanco juega Kd3, el rey negro penetra vía f4. Al mantenerse frente al rey rival, el blanco asegura que el negro no pueda progresar.",
+    hints: [
+      "Mantén la oposición frontal.",
+      "No dejes que el rey negro llegue a f4.",
+      "En los finales de peones, la precisión del rey es absoluta."
+    ],
+    successFeedback: "¡Excelente! Has dominado el concepto de oposición defensiva.",
+    failureFeedback: "Perder la oposición significa perder la partida. El rey negro ha invadido.",
+    xp: 220
   }
 ];
